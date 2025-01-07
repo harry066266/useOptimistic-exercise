@@ -28,8 +28,12 @@ function App() {
   const [ispending, startTransition] = useTransition();
   async function addTodo() {
     simplifiedAddTodo(newTodo);
-    await postTodos(newTodo);
-    setTodos(await getTodos());
+    try {
+      await postTodos(newTodo);
+      setTodos(await getTodos());
+    } catch (error) {
+      console.error(error);
+    }
 
     setNewTodo("");
   }
